@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" ng-app="ag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>NODE</title>
+    <link rel="stylesheet" href="css/note.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-animate.js"></script>
+    <script src="js/note.js"></script>
+</head>
+
+<body ng-controller="mainCtrl">
+<div class="hea">
+    <h2>TTNODE</h2>
+</div>
+<div class="card">
+    <div class="addess">
+        <input type="text"
+        ng-keyup="add($event);save()"
+        ng-model="name"
+       placeholder="记下你将要做的事情吧！">
+    </div>
+    <ul class="something" ng-init="tiaojian=''">
+        <li ngl-class="{bianji:aa,wancheng:v.isDone}"
+            ng-init="aa=false"
+            ng-dblclick="aa=true;focus($event)"
+            class="row"
+            ng-repeat="v in something | filter:{isDone:tiaojian} track by v.id">
+            <!--没有应该加上其它的不能重复 track by v.id    ng-repeat="v in something | filter:{isDone:tiaojian} track by v.id-">-->
+            <div class="check"
+            ng-click="v.isDone=!v.isDone;save()"></div>
+            <p>{{v.name}}</p>
+            <div ng-click="delete(v.id);save()"
+                 class="delete"></div>
+            <input ng-blur="aa=false" type="text"
+                    ng-model="v.name"
+                    ng-change="save()">
+        </li>
+    </ul>
+    <div class="foot">
+        <span class="left" ng-bind="(something|filter:{isDone:tiaojian}).length"></span>
+        <span ng-class="{active:(tiaojian==='')}"ng-click="tiaojian='';setcount(quanbu)">ALL</span>
+        <span ng-class="{active:(tiaojian===true)}"ng-click="tiaojian=true;setcount('wancheng')">Done</span>
+        <span ng-class="{active:(tiaojian===false)}"ng-click="tiaojian=false;setcount('weiwan')">Active</span>
+        <span class="right" ng-click="clear();save()">clear</span>
+    </div>
+
+</div>
+</body>
+</html>
